@@ -8,14 +8,14 @@ var (
 	ErrRepositoryInternalError          = errors.New("dba: internal error")
 )
 
-type Repository[Entity any] interface {
-	Count() (int64, error)
-	FindById(entity *Entity, id string) error
+type Repository[Entity any, Id string | uint64] interface {
+	Count() (uint64, error)
+	FindById(entity *Entity, id Id) error
 	//Find(search Search) ([]Entity, error)
 	Save(entity *Entity) error
 	SaveAll(entities []Entity) error
-	ExistsById(id string) (bool, error)
-	DeleteById(id string) error
+	ExistsById(id Id) (bool, error)
+	DeleteById(id Id) error
 	//Delete(search Search) ([]Entity, error)
 }
 
