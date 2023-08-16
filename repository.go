@@ -8,17 +8,24 @@ var (
 	ErrRepositoryInternalError          = errors.New("dba: internal error")
 )
 
+type BaseEntity[ID string | uint64] struct {
+	Id        ID
+	CreatedAt int64
+	UpdatedAt int64
+}
+
 type Repository[Entity any, Id string | uint64] interface {
 	Count() (uint64, error)
-	FindById(entity *Entity, id Id) error
-	//Find(search Search) ([]Entity, error)
-	Save(entity *Entity) error
-	SaveAll(entities []Entity) error
-	ExistsById(id Id) (bool, error)
-	DeleteById(id Id) error
+	FindById(*Entity, Id) error
+	Find(map[string]interface{}) ([]Entity, error)
+	Save(*Entity) error
+	SaveAll([]Entity) error
+	ExistsById(Id) (bool, error)
+	DeleteById(Id) error
 	//Delete(search Search) ([]Entity, error)
 }
 
+// Find().Sort().Page()
 //type Pageable struct {
 //}
 //
