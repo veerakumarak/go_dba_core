@@ -17,9 +17,9 @@ type BaseEntity[ID string | uint64] struct {
 type Repository[Entity any, Id string | uint64] interface {
 	Count() (uint64, error)
 	FindById(*Entity, Id) error
-	Find(map[string]interface{}) ([]Entity, error)
+	FindOne(map[string]interface{}) ([]*Entity, error)
 	Save(*Entity) error
-	SaveAll([]Entity) error
+	SaveAll([]*Entity) error
 	ExistsById(Id) (bool, error)
 	DeleteById(Id) error
 	//Delete(search Search) ([]Entity, error)
